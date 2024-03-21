@@ -9,10 +9,12 @@
     :components ((:file "package")
                  (:file "utils")
                  (:file "voronoi")
-                 (:file "value-noise"))
+                 (:file "value-noise")
+                 (:file "ball-packing"))
     :depends-on (:alexandria
                  :serapeum
                  :stateless-iterators
                  :cl-value-noise
                  :array-operations
-                 :float-features))
+                 :float-features
+                 :vp-trees))

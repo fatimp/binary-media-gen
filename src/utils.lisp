@@ -1,7 +1,5 @@
 (in-package :binary-media-gen)
 
-(deftype point () `(simple-array single-float (*)))
-
 (macrolet ((def-mix (name (a1 a2) expr &optional documentation)
              `(progn
                 (sera:-> ,name ((simple-array bit) (simple-array bit))
@@ -136,3 +134,38 @@ largest."
     (aops:vectorize* 'bit
         (lbls)
       (if (= lbls pos) 0 1))))
+
+;; Ball packings and voronoi diagrams
+
+(deftype point () `(simple-array single-float (*)))
+
+(sera:-> make-point (list)
+         (values point &optional))
+(declaim (inline make-point))
+(defun make-point (coords)
+  (make-array (length coords)
+              :element-type 'single-float
+              :initial-contents coords))
+
+(sera:-> random-centers ((integer 1) (integer 1))
+         (values list &optional))
+(defun random-centers (n dim)
+  "Generate @c(n) points in @c(dim)-dimensional space, which are
+distributed independently and uniformly in the range \\([0, 1]\\)."
+  (loop repeat n collect
+        (make-point
+         (loop repeat dim collect (random 1f0)))))
+
+(sera:-> distance (point point)
+         (values single-float &optional))
+(defun distance (p1 p2)
+  "Calculate the Euclidean distance between two points lying on a
+torus of arbitrary dimensionality \\(n\\). Coordinates of the points
+must be in the range \\([0, 1]^n\\)."
+  (declare (optimize (speed 3)))
+  (sqrt
+   (loop for x1 across p1
+         for x2 across p2
+         for d = (abs (- x1 x2))
+         sum (expt (min d (- (1- d))) 2)
+         single-float)))

@@ -4,6 +4,7 @@
                     (#:alex #:alexandria)
                     (#:n    #:cl-value-noise)
                     (#:ff   #:float-features)
+                    (#:vp   #:vp-trees)
                     (#:si   #:stateless-iterators))
   (:export #:mix-*
            #:mix-+
@@ -15,4 +16,5 @@
            #:voronoi-diagram
            #:voronoi-type
            #:noise-fill
-           #:porosity))
+           #:porosity
+           #:ball-packing))
