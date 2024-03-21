@@ -45,14 +45,11 @@ the range of @c(bit) type."))
   (let ((rank (array-rank array)))
     (cond
       ((= rank 1)
-       (destructuring-bind (i) index
-         (aref array i)))
+       (aref array (first index)))
       ((= rank 2)
-       (destructuring-bind (i j) index
-         (aref array i j)))
+       (aref array (first index) (second index)))
       ((= rank 3)
-       (destructuring-bind (i j k) index
-         (aref array i j k)))
+       (aref array (first index) (second index) (third index)))
       (t (apply #'aref array index)))))
 
 (declaim (inline (setf index)))
@@ -60,14 +57,11 @@ the range of @c(bit) type."))
   (let ((rank (array-rank array)))
     (cond
       ((= rank 1)
-       (destructuring-bind (i) index
-         (setf (aref array i) val)))
+       (setf (aref array (first index)) val))
       ((= rank 2)
-       (destructuring-bind (i j) index
-         (setf (aref array i j) val)))
+       (setf (aref array (first index) (second index)) val))
       ((= rank 3)
-       (destructuring-bind (i j k) index
-         (setf (aref array i j k) val)))
+       (setf (aref array (first index) (second index) (third index)) val))
       (t (setf (apply #'aref array index) val)))))
 
 (sera:-> label-components ((simple-array bit))
