@@ -123,3 +123,16 @@ left as is, ones are labeled with a positive label."
           unless (zerop x) do
           (incf (aref histogram (1- x))))
     histogram))
+
+(sera:-> only-one-cluster ((simple-array bit))
+         (values (simple-array bit) &optional))
+(defun only-one-cluster (array)
+  "Remove all clusters of zeros from an array with exception of the
+largest."
+  (let* ((lbls (label-components (invert array)))
+         (histogram (histogram lbls))
+         (max (reduce #'max histogram))
+         (pos (1+ (position max histogram :test #'=))))
+    (aops:vectorize* 'bit
+        (lbls)
+      (if (= lbls pos) 0 1))))

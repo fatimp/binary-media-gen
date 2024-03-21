@@ -9,6 +9,7 @@
            #:mix-+
            #:invert
            #:label-components
+           #:only-one-cluster
            #:histogram
            #:random-centers
            #:voronoi-diagram
