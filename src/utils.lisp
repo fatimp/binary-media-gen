@@ -35,7 +35,10 @@ the range of @c(bit) type."))
 (sera:-> make-pattern (alex:positive-fixnum)
          (values list &optional))
 (defun make-pattern (dim)
-  (si:collect (si:power (si:list->iterator '(-1 0 +1)) dim)))
+  (loop for c in '(-1 1) append
+        (loop for d1 below dim collect
+              (loop for d2 below dim collect
+                    (if (= d1 d2) c 0)))))
 
 (declaim (inline index))
 (defun index (array index)
