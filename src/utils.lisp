@@ -130,7 +130,7 @@ the range of @c(bit) type."))
 labeled as @c(-1), ones are labeled with a positive label. This
 function modifies its argument."
   (declare (optimize (speed 3)))
-  (let ((map (make-sets-map (reduce #'+ (aops:flatten image))))
+  (let ((map (make-sets-map (floor (reduce #'+ (aops:flatten image)) 2)))
         (current-label 0)
         (pattern (make-pattern (array-rank image))))
     (declare (type fixnum current-label))
