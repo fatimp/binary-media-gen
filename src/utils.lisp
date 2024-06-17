@@ -187,15 +187,17 @@ labeled as @c(-1), ones are labeled with a positive label."
 (sera:-> only-one-cluster ((simple-array bit))
          (values (simple-array bit) &optional))
 (defun only-one-cluster (array)
-  "Remove all clusters of zeros from an array with exception of the
-largest."
-  (let* ((lbls (label-components (invert array)))
-         (histogram (histogram lbls))
-         (max (reduce #'max histogram :key #'car))
-         (label (cdr (assoc max histogram))))
-    (aops:vectorize* 'bit
-        (lbls)
-      (if (= lbls label) 0 1))))
+  "Remove all clusters of zeros and ones from an array with exception
+of the largest."
+  (flet ((pass (array)
+           (let* ((lbls (label-components array))
+                  (histogram (histogram lbls))
+                  (max (reduce #'max histogram :key #'car))
+                  (label (cdr (assoc max histogram))))
+             (aops:vectorize* 'bit
+                 (lbls)
+               (if (= lbls label) 0 1)))))
+    (pass (pass array))))
 
 ;; Ball packings and voronoi diagrams
 
