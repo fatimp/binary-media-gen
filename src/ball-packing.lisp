@@ -22,3 +22,23 @@ radius @c(r)."
                  r #'distance)
                 1 0)))
     array))
+
+
+(sera:-> ball (alex:positive-fixnum alex:positive-fixnum (single-float 0.0 1.0))
+         (values (simple-array bit) &optional))
+(defun ball (side dim r)
+  "Draw a @c(dim)-dimensional ball with radius \\(0 \\le r \\le
+0.5\\). Produced array has dimensions (@c(side) @c(side) @c(side))."
+  (declare (optimize (speed 3)))
+  (let ((array (make-array (loop repeat dim collect side) :element-type 'bit))
+        (indices (si:power (si:range 0 side) dim))
+        (side (float side)))
+    (si:do-iterator (idx indices)
+      (setf (index array idx)
+            (let ((d (reduce #'+ idx
+                             :initial-value 0.0
+                             :key (lambda (n)
+                                    (declare (type fixnum n))
+                                    (expt (/ (- n (/ side 2)) side) 2)))))
+              (if (< d (expt r 2)) 1 0))))
+    array))

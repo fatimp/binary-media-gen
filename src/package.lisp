@@ -17,4 +17,5 @@
            #:voronoi-type
            #:noise-fill
            #:porosity
-           #:ball-packing))
+           #:ball-packing
+           #:ball))
