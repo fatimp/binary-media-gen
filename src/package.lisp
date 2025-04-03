@@ -11,6 +11,7 @@
            #:invert
            #:label-components
            #:only-one-cluster
+           #:remove-floating-solid
            #:histogram
            #:random-centers
            #:voronoi-diagram
