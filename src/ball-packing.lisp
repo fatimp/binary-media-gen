@@ -13,7 +13,7 @@ radius @c(r)."
         (tree (vp:make-vp-tree centers #'distance)))
     (si:do-iterator (idx indices)
       (setf (index array idx)
-            (if (vp:items-in-ball
+            (if (vp:find
                  tree (map '(vector single-float)
                            (lambda (x)
                              (declare (type fixnum x))
