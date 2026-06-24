@@ -8,6 +8,7 @@
                     (#:si   #:stateless-iterators))
   (:export #:mix-*
            #:mix-+
+           #:mix-with-mask
            #:invert
            #:label-components
            #:only-one-cluster
