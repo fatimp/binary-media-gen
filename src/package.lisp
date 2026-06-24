@@ -18,5 +18,8 @@
            #:voronoi-type
            #:noise-fill
            #:porosity
+           #:distance-p1
+           #:distance-p2
+           #:distance-pinf
            #:ball-packing
            #:ball))

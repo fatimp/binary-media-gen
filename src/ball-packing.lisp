@@ -1,8 +1,12 @@
 (in-package :binary-media-gen)
 
-(sera:-> ball-packing (alex:positive-fixnum alex:positive-fixnum list single-float)
+(deftype distance-fn () '(function (point point) (values single-float &optional)))
+
+(sera:-> ball-packing (alex:positive-fixnum
+                       alex:positive-fixnum
+                       list single-float distance-fn)
          (values (simple-array bit) &optional))
-(defun ball-packing (side dim centers r)
+(defun ball-packing (side dim centers r distance)
   "Create a ball packing in a @c(dim)-dimensional cube of a side
 @c(side). Centers of the balls are in @c(centers). All balls have a
 radius @c(r)."
@@ -10,7 +14,7 @@ radius @c(r)."
   (let ((array (make-array (loop repeat dim collect side) :element-type 'bit))
         (indices (si:power (si:range 0 side) dim))
         (side (float side))
-        (tree (vp:make-vp-tree centers #'distance)))
+        (tree (vp:make-vp-tree centers distance)))
     (si:do-iterator (idx indices)
       (setf (index array idx)
             (if (vp:find
@@ -19,7 +23,7 @@ radius @c(r)."
                              (declare (type fixnum x))
                              (/ x side))
                            idx)
-                 r #'distance)
+                 r distance)
                 1 0)))
     array))
 

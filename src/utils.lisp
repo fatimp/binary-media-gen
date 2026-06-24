@@ -233,16 +233,28 @@ distributed independently and uniformly in the range \\([0, 1]\\)."
         (make-point
          (loop repeat dim collect (random 1f0)))))
 
-(sera:-> distance (point point)
+(sera:-> distance-p1 (point point)
          (values single-float &optional))
-(defun distance (p1 p2)
-  "Calculate the Euclidean distance between two points lying on a
+(defun distance-p1 (p1 p2)
+  "Calculate the taxicab distance between two points lying on a
 torus of arbitrary dimensionality \\(n\\). Coordinates of the points
 must be in the range \\([0, 1]^n\\)."
   (declare (optimize (speed 3)))
-  (sqrt
-   (loop for x1 across p1
-         for x2 across p2
-         for d = (abs (- x1 x2))
-         sum (expt (min d (- (1- d))) 2)
-         single-float)))
+  (loop for x1 across p1
+        for x2 across p2
+        for d = (abs (- x1 x2))
+        sum (min d (- (1- d)))
+        single-float))
+
+(sera:-> distance-pinf (point point)
+         (values single-float &optional))
+(defun distance-pinf (p1 p2)
+  "Calculate the Chebyshev distance between two points lying on a
+torus of arbitrary dimensionality \\(n\\). Coordinates of the points
+must be in the range \\([0, 1]^n\\)."
+  (declare (optimize (speed 3)))
+  (loop for x1 across p1
+        for x2 across p2
+        for d = (abs (- x1 x2))
+        maximize (min d (- (1- d)))
+        single-float))
