@@ -1,0 +1,32 @@
+("quicklisp" .
+ (:class qlot/source/dist:source-dist
+  :initargs (:distribution "https://beta.quicklisp.org/dist/quicklisp.txt" :%version :latest)
+  :version "2026-01-01"))
+("alexandria" .
+ (:class qlot/source/ql:source-ql
+  :initargs (:%version :latest)
+  :version "ql-2024-10-12"))
+("serapeum" .
+ (:class qlot/source/ql:source-ql
+  :initargs (:%version :latest)
+  :version "ql-2026-01-01"))
+("stateless-iterators" .
+ (:class qlot/source/ql:source-ql
+  :initargs (:%version :latest)
+  :version "ql-2025-06-22"))
+("cl-value-noise" .
+ (:class qlot/source/github:source-github
+  :initargs (:repos "shamazmazum/cl-value-noise" :ref nil :branch nil :tag nil)
+  :version "github-b3a44bd01e691e684c7a3de0cdc0e6e933c47976"))
+("vp-trees" .
+ (:class qlot/source/github:source-github
+  :initargs (:repos "shamazmazum/vp-trees" :ref nil :branch nil :tag "v2.1")
+  :version "github-82c28ce344edd994eed283a4788a8724ce38fc25"))
+("float-features" .
+ (:class qlot/source/ql:source-ql
+  :initargs (:%version :latest)
+  :version "ql-2026-01-01"))
+("array-operations" .
+ (:class qlot/source/ql:source-ql
+  :initargs (:%version :latest)
+  :version "ql-2023-10-21"))

@@ -1,0 +1,7 @@
+ql alexandria
+ql serapeum
+ql stateless-iterators
+github shamazmazum/cl-value-noise
+github shamazmazum/vp-trees :tag v2.1
+ql float-features
+ql array-operations
