@@ -267,6 +267,20 @@ must be in the range \\([0, 1]^n\\)."
         sum (min d (- (1- d)))
         single-float))
 
+(sera:-> distance-p2 (point point)
+         (values single-float &optional))
+(defun distance-p2 (p1 p2)
+  "Calculate the Euclidean distance between two points lying on a
+torus of arbitrary dimensionality \\(n\\). Coordinates of the points
+must be in the range \\([0, 1]^n\\)."
+  (declare (optimize (speed 3)))
+  (sqrt
+   (loop for x1 across p1
+         for x2 across p2
+         for d = (expt (- x1 x2) 2)
+         sum (min d (- (1- d)))
+         single-float)))
+
 (sera:-> distance-pinf (point point)
          (values single-float &optional))
 (defun distance-pinf (p1 p2)

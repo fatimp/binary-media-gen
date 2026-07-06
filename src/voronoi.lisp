@@ -48,7 +48,7 @@ a scalar."
   (loop with distance single-float = ff:single-float-positive-infinity
         with closest = point
         for center in centers
-        for cd = (distance point center)
+        for cd = (distance-p2 point center)
         when (< cd distance) do
         (setq distance cd
               closest center)
